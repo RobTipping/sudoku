@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	//"strconv"
-	//"unicode"
+	"strconv"
+	"unicode"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -47,6 +47,7 @@ func initialModel() model {
 	return model{
 		grid: [9][9]int{
 			/*
+				// Uncomment and use as templete grid values
 				{1, 0, 3, 4, 5, 6, 7, 8, 9},
 				{2, 2, 0, 4, 5, 6, 7, 8, 9},
 				{3, 2, 3, 0, 0, 0, 7, 8, 9},
@@ -98,7 +99,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 			}
 		}
-		/*
+
+		if len(msg.Runes) != 0 {
 			if unicode.IsDigit(msg.Runes[0]) == true {
 				if value, err := strconv.Atoi(msg.String()); err == nil {
 					m.grid[m.cursor[0]][m.cursor[1]] = value
@@ -111,7 +113,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 						}
 					}
 				}
-			}*/
+			}
+		}
 	}
 	return m, nil
 }
