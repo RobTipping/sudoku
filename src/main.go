@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"unicode"
 
+	solver "github.com/RobTipping/sudoku/internal"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 )
@@ -46,18 +47,16 @@ type model struct {
 func initialModel() model {
 	return model{
 		grid: [9][9]int{
-			/*
 				// Uncomment and use as templete grid values
-				{1, 0, 3, 4, 5, 6, 7, 8, 9},
-				{2, 2, 0, 4, 5, 6, 7, 8, 9},
-				{3, 2, 3, 0, 0, 0, 7, 8, 9},
-				{4, 2, 3, 0, 0, 0, 7, 8, 9},
-				{5, 2, 3, 0, 0, 0, 7, 8, 9},
-				{6, 2, 3, 0, 0, 0, 0, 8, 9},
-				{7, 2, 3, 4, 5, 6, 7, 0, 9},
-				{8, 2, 3, 4, 5, 6, 7, 8, 0},
-				{9, 2, 3, 4, 5, 6, 7, 0, 9},
-			*/
+				{1, 2, 0, 0, 0, 0, 0, 0, 1},
+				{0, 0, 2, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 3, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 3, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
 		},
 	}
 }
@@ -151,6 +150,7 @@ func (m model) View() string {
 }
 
 func main() {
+	solver.ValidGrid()
 	fmt.Println("this will be a shitty little sudoku solver in go")
 	p := tea.NewProgram(initialModel())
 	if _, err := p.Run(); err != nil {
