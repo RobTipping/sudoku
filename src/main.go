@@ -146,11 +146,12 @@ func (m model) View() string {
 		}
 		s += "\n"
 	}
+	s += fmt.Sprintf("%v",solver.ValidGrid(m.grid))
+	s += "\n"
 	return s
 }
 
 func main() {
-	solver.ValidGrid()
 	fmt.Println("this will be a shitty little sudoku solver in go")
 	p := tea.NewProgram(initialModel())
 	if _, err := p.Run(); err != nil {
