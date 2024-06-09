@@ -9,30 +9,13 @@ func ValidGrid(grid [9][9]int) bool{
 			}
 			// check rows
 			for k:= range grid[i] {
-				if j==k {
-					continue
-				}
-				if grid[i][j] == grid[i][k] {
+				if j != k && grid[i][j] == grid[i][k] {
 					return false
 				}
-				if i==k {
-					continue
-				}
-				if grid[i][j] == grid[k][j] {
+				if i != k && grid[i][j] == grid[k][j] {
 					return false
 				}
 			}
-			// check columns
-			/*
-			for k:= range grid {
-				if i==k {
-					continue
-				}
-				if grid[i][j] == grid[k][j] {
-					return false
-				}
-			}
-		*/
 		}
 	}
 	return true
