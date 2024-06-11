@@ -152,7 +152,6 @@ func (m model) View() string {
 }
 
 func main() {
-	fmt.Println("this will be a shitty little sudoku solver in go")
 	p := tea.NewProgram(initialModel())
 	if _, err := p.Run(); err != nil {
 		fmt.Printf("Error, %v", err)
