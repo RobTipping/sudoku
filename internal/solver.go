@@ -9,7 +9,7 @@ func ValidGrid(grid [9][9]int) bool {
 			if grid[i][j] == 0 {
 				continue
 			}
-			if checkSquare(grid, i, j) == false {
+			if CheckSquare(grid, i, j) == false {
 				return false
 			}
 		}
@@ -17,7 +17,7 @@ func ValidGrid(grid [9][9]int) bool {
 	return true
 }
 
-func checkSquare(grid [9][9]int, i, j int) bool {
+func CheckSquare(grid [9][9]int, i, j int) bool {
 	// find 3x3
 	var a int = (i / 3) * 3
 	var b int = (j / 3) * 3
@@ -48,20 +48,20 @@ func SolveGrid(grid [9][9]int) ([9][9]int, bool) {
 	if ValidGrid(grid) == false {
 		return grid, false
 	}
-	if findGrid(grid, 0) == 1 {
+	if findGridSolution(grid, 0) == 1 {
 		return solvedGrid, true
 	}
 	return grid, false
 }
 
-func findGrid(grid [9][9]int, pos int) int {
+func findGridSolution(grid [9][9]int, pos int) int {
 	x := int(pos / 9)
 	y := int(pos % 9)
 	if originalGrid[x][y] != 0 {
 		if pos < 80 {
-			return findGrid(grid, pos+1)
+			return findGridSolution(grid, pos+1)
 		}
-		if checkSquare(grid, x, y) == true {
+		if CheckSquare(grid, x, y) == true {
 			solvedGrid = grid
 			return 1
 		}
@@ -69,12 +69,12 @@ func findGrid(grid [9][9]int, pos int) int {
 	}
 	for i := 1; i < 10; i++ {
 		grid[x][y] = i
-		if checkSquare(grid, x, y) == true {
+		if CheckSquare(grid, x, y) == true {
 			if pos == 80 {
 				solvedGrid = grid
 				return 1
 			}
-			if findGrid(grid, pos+1) == 1 {
+			if findGridSolution(grid, pos+1) == 1 {
 				return 1
 			}
 		}
