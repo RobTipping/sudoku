@@ -1,7 +1,5 @@
 package solver
 
-import ()
-
 var originalGrid [9][9]int
 var solvedGrid [9][9]int
 
@@ -47,6 +45,9 @@ func checkSquare(grid [9][9]int, i, j int) bool {
 
 func SolveGrid(grid [9][9]int) ([9][9]int, bool) {
 	originalGrid = grid
+	if ValidGrid(grid) == false {
+		return grid, false
+	}
 	if findGrid(grid, 0) == 1 {
 		return solvedGrid, true
 	}

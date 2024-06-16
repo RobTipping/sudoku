@@ -4,7 +4,7 @@ import "testing"
 
 func TestSolveGrid(t *testing.T) {
 	input := [9][9]int{
-		{1, 0, 0, 0, 0, 0, 3, 0, 0},
+		{0, 0, 0, 0, 0, 0, 3, 0, 0},
 		{1, 0, 0, 0, 0, 3, 5, 0, 4},
 		{0, 0, 0, 5, 0, 6, 0, 0, 0},
 		{2, 0, 5, 7, 0, 0, 0, 0, 1},
@@ -15,6 +15,17 @@ func TestSolveGrid(t *testing.T) {
 		{0, 0, 8, 0, 0, 0, 0, 0, 3},
 	}
 
+	/*input := [9][9]int{
+		{0,1,0,0,0,0,0,0,1},
+		{0,0,2,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,3,0,0},
+		{0,0,0,0,0,0,0,0,0},
+	}*/
 	expectedOutOne := [9][9]int{
 		{6, 5, 4, 1, 2, 7, 3, 9, 8},
 		{1, 7, 2, 9, 8, 3, 5, 6, 4},
@@ -32,9 +43,9 @@ func TestSolveGrid(t *testing.T) {
 	actualOne, actualTwo := SolveGrid(input)
 
 	if actualOne != expectedOutOne {
-		t.Errorf("error got %v, wanted %v", actualOne, expectedOutOne)
+		t.Errorf("error one, got %v, wanted %v", actualOne, expectedOutOne)
 	}
 	if actualTwo != expectedOutTwo {
-		t.Errorf("error got %v, wanted %v", actualTwo, expectedOutTwo)
+		t.Errorf("error two, got %v, wanted %v", actualTwo, expectedOutTwo)
 	}
 }
