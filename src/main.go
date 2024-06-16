@@ -39,25 +39,28 @@ var styleBorder = lipgloss.NewStyle().
 	Background(lipgloss.Color("#44624A"))
 
 type model struct {
-	grid      [9][9]int
-	cursor    [2]int
-	tickCount int
+	grid       [9][9]int
+	solvedGrid [9][9]int
+	cursor     [2]int
+	tickCount  int
+	solved     bool
 }
 
 func initialModel() model {
 	return model{
 		grid: [9][9]int{
-				// Uncomment and use as templete grid values
-				{0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{0, 0, 2, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 3, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			// Uncomment and use as templete grid values
+			{0, 0, 0, 0, 0, 0, 0, 0, 1},
+			{0, 0, 2, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 3, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 		},
+		solved: false,
 	}
 }
 
@@ -87,6 +90,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "right", "l":
 			if m.cursor[1] < len(m.grid[m.cursor[0]])-1 {
 				m.cursor[1]++
+			}
+		case "s":
+			m.solvedGrid, m.solved = solver.SolveGrid(m.grid)
+			if m.solved == true {
+				m.grid = m.solvedGrid
 			}
 		case "enter", " ":
 			if m.cursor[1] < len(m.grid[m.cursor[0]])-1 {
@@ -119,7 +127,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	s := ""
+	s := "Enter Grid To Solve\nPress \"S\" to find try and solve current grid\n"
 	for i := range m.grid {
 		if i == 3 || i == 6 {
 			s += styleBorder.Render("                             ")
@@ -146,8 +154,8 @@ func (m model) View() string {
 		}
 		s += "\n"
 	}
-	s += fmt.Sprintf("%v",solver.ValidGrid(m.grid))
 	s += "\n"
+	s += fmt.Sprintf("\n%v\n", m.solved)
 	return s
 }
 

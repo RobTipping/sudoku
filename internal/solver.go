@@ -2,6 +2,9 @@ package solver
 
 import ()
 
+var originalGrid [9][9]int
+var solvedGrid [9][9]int
+
 func ValidGrid(grid [9][9]int) bool {
 	for i := range grid {
 		for j := range grid[i] {
@@ -40,4 +43,40 @@ func checkSquare(grid [9][9]int, i, j int) bool {
 		}
 	}
 	return true
+}
+
+func SolveGrid(grid [9][9]int) ([9][9]int, bool) {
+	originalGrid = grid
+	if findGrid(grid, 0) == 1 {
+		return solvedGrid, true
+	}
+	return grid, false
+}
+
+func findGrid(grid [9][9]int, pos int) int {
+	x := int(pos / 9)
+	y := int(pos % 9)
+	if originalGrid[x][y] != 0 {
+		if pos < 80 {
+			return findGrid(grid, pos+1)
+		}
+		if checkSquare(grid, x, y) == true {
+			solvedGrid = grid
+			return 1
+		}
+		return 0
+	}
+	for i := 1; i < 10; i++ {
+		grid[x][y] = i
+		if checkSquare(grid, x, y) == true {
+			if pos == 80 {
+				solvedGrid = grid
+				return 1
+			}
+			if findGrid(grid, pos+1) == 1 {
+				return 1
+			}
+		}
+	}
+	return 0
 }
