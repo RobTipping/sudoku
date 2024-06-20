@@ -126,6 +126,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					m.cursor[1] = 0
 				}
 			}
+		case "c":
+			for i := range m.grid {
+				for j := range m.grid[i] {
+					m.grid[i][j] = 0
+				}
+			}
 		}
 
 		if len(msg.Runes) != 0 {
